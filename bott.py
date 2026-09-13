@@ -45,7 +45,7 @@ async def image_robot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await photo.download_to_drive("dani.jpg")
     
     
-    await update.message.reply_text("عکس دریافت شد")
+    await update.message.reply_text("عکس دریافت شد عزیزمممم")
     
 
 async def voice_robot(update: Update, context: ContextTypes.DEFAULT_TYPE):
