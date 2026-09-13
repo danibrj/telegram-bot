@@ -1,8 +1,12 @@
 import logging
+import os
+import threading
+import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
-import time
-import os
+
+
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -52,8 +56,29 @@ async def voice_robot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await update.message.reply_text("ویس دریافت شد")
 
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is running!")
+
+    def log_message(self, format, *args):
+        return
+
+
+def run_health_server():
+    port = int(os.environ.get("PORT", 10000))
+
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    server.serve_forever()
+
+
+
 if __name__ == "__main__":
     TOKEN = os.getenv("BOT_TOKEN")
+    
+    threading.Thread(target=run_health_server, daemon=True).start()
 
     application = ApplicationBuilder().token(TOKEN).build()
     
