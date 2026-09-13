@@ -30,10 +30,10 @@ async def text_robot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     realTime = time.ctime(t)
     
     if "سلام" in text:
-        await update.message.reply_text("سلام چطوری؟")
+        await update.message.reply_text("سلام چطوری؟ من که خیلی خوبم عزیزم")
         
     if "خوبی" in text:
-        await update.message.reply_text("خوبم تو خوبی؟")    
+        await update.message.reply_text("خوبم تو خوبی عزیز؟")    
 
     if "ساعت" in text:
         await update.message.reply_text(realTime)     
