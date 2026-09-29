@@ -5,7 +5,7 @@ import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
-
+from AI.agent import run_agent
 
 
 logging.basicConfig(
@@ -16,8 +16,7 @@ logging.basicConfig(
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
-    await context.bot.send_photo(chat_id=update.effective_chat.id,photo=open("download.jpg", 'rb'),caption="سلام دوست عزیز\n خیلی خوش آمدی")
+    await context.bot.send_photo(chat_id=update.effective_chat.id,photo=open("agent.jpg", 'rb'),caption="سلام دوست عزیز\n خیلی خوش آمدی به دستیار هوش مصنوعی")
     
 async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("متن دریافت شد")
@@ -26,17 +25,9 @@ async def text_robot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
     print(text)
     print(type(text))
-    t = time.time()
-    realTime = time.ctime(t)
     
-    if "سلام" in text:
-        await update.message.reply_text("سلام چطوری؟ من که خیلی خوبم عزیزم")
-        
-    if "خوبی" in text:
-        await update.message.reply_text("خوبم تو خوبی عزیز؟")    
-
-    if "ساعت" in text:
-        await update.message.reply_text(realTime)     
+    answer = await run_agent(text)
+    await update.message.reply_text(answer)  
 
 async def image_robot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(update.message)
@@ -98,3 +89,6 @@ if __name__ == "__main__":
     application.add_handler(voice_handler)
     
     application.run_polling()
+    
+    
+    
