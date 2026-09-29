@@ -61,6 +61,10 @@ async def root():
 async def health():
     return {"status": "ok"}
 
+@app.head("/health")
+async def health_head():
+    return
+
 @app.post("/chat")
 async def chat(request: ChatRequest):
     text = request.text
