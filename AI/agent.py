@@ -1,4 +1,4 @@
-from client import get_client
+from AI.client import get_client
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
