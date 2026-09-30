@@ -73,6 +73,4 @@ def run_agent(message):
         
 
 
-x = run_agent("سلام خوبی؟")
 
-print(x)
