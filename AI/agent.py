@@ -22,7 +22,7 @@ def llm_request(messages):
 
 
 # Agent
-def run_agent(message):
+async def run_agent(message):
      
     system_message = {
         "role" : "system",
