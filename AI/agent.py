@@ -1,4 +1,4 @@
-from AI.client import get_client
+from client import get_client
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -12,7 +12,7 @@ def llm_request(messages):
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4.1",
+            model="openai/gpt-oss-120b",
             messages= messages
         )
         
@@ -22,7 +22,7 @@ def llm_request(messages):
 
 
 # Agent
-async def run_agent(message):
+def run_agent(message):
      
     system_message = {
         "role" : "system",
@@ -73,6 +73,6 @@ async def run_agent(message):
         
 
 
-# x = run_agent("سلام خوبی؟")
+x = run_agent("سلام خوبی؟")
 
-# print(x)
+print(x)
